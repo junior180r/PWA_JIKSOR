@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jiksor</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <style>
+      .box {
+        width: 50%;
+        height: 200px;
+        border: 1px solid black;
+        position: relative;
+      }
+      .img-sub {
+        width: 25%;
+      }
+      .img-in-div {
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-2">
+      <h3 class="text-center p-3">Jiksor</h3>
+      <div class="d-flex flex-row">
+        <div id="hole1" class="box col-6"></div>
+        <div id="hole2" class="box col-6"></div>
+      </div>
+      <div class="d-flex flex-row">
+        <div id="hole3" class="box col-6"></div>
+        <div id="hole4" class="box col-6"></div>
+      </div>
+
+      <div class="d-flex flex-row">
+        <img
+          src="/images/1.png"
+          ontouchmove="drag(event)"
+          ontouchend="drop(event)"
+          class="img-sub p-2"
+        />
+        <img
+          src="/images/2.png"
+          ontouchmove="drag(event)"
+          ontouchend="drop(event)"
+          class="img-sub p-2"
+        />
+        <img
+          src="/images/3.png"
+          ontouchmove="drag(event)"
+          ontouchend="drop(event)"
+          class="img-sub p-2"
+        />
+        <img
+          src="/images/4.png"
+          ontouchmove="drag(event)"
+          ontouchend="drop(event)"
+          class="img-sub p-2"
+        />
+      </div>
+
+      <div class="d-flex justify-content-center mt-2">
+        <button onclick="reset()" class="btn btn-danger align-center w-100">
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+      function drag(event) {
+        var x = event.touches[0].clientX;
+        var y = event.touches[0].clientY;
+        const elm = event.target;
+        elm.style.position = "absolute";
+        elm.style.top = y + "px";
+        elm.style.left = x + "px";
+      }
+
+      function drop(event) {
+        const box1 = document.querySelector("#hole1");
+        const box2 = document.querySelector("#hole2");
+        const box3 = document.querySelector("#hole3");
+        const box4 = document.querySelector("#hole4");
+        var rect1 = box1.getBoundingClientRect();
+        var rect2 = box2.getBoundingClientRect();
+        var rect3 = box3.getBoundingClientRect();
+        var rect4 = box4.getBoundingClientRect();
+
+        const elm = event.target;
+        elm.removeAttribute("ontouchmove");
+
+        if (
+          event.changedTouches[0].clientX <= rect1.right &&
+          event.changedTouches[0].clientX >= rect1.left &&
+          event.changedTouches[0].clientY >= rect1.top &&
+          event.changedTouches[0].clientY <= rect1.bottom
+        ) {
+          elm.className = "img-in-div";
+          elm.style = "";
+          box1.appendChild(elm);
+        } else if (
+          event.changedTouches[0].clientX <= rect2.right &&
+          event.changedTouches[0].clientX >= rect2.left &&
+          event.changedTouches[0].clientY >= rect2.top &&
+          event.changedTouches[0].clientY <= rect2.bottom
+        ) {
+          elm.className = "img-in-div";
+          elm.style = "";
+          box2.appendChild(elm);
+        } else if (
+          event.changedTouches[0].clientX <= rect3.right &&
+          event.changedTouches[0].clientX >= rect3.left &&
+          event.changedTouches[0].clientY >= rect3.top &&
+          event.changedTouches[0].clientY <= rect3.bottom
+        ) {
+          elm.className = "img-in-div";
+          elm.style = "";
+          box3.appendChild(elm);
+        } else if (
+          event.changedTouches[0].clientX <= rect4.right &&
+          event.changedTouches[0].clientX >= rect4.left &&
+          event.changedTouches[0].clientY >= rect4.top &&
+          event.changedTouches[0].clientY <= rect4.bottom
+        ) {
+          elm.className = "img-in-div";
+          elm.style = "";
+          box4.appendChild(elm);
+        }
+      }
+
+      function reset() {
+        location.reload();
+      }
+    </script>
+  </body>
+</html>
