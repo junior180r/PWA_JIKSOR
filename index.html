@@ -32,46 +32,56 @@
   <body>
     <div class="container mt-2">
       <h3 class="text-center p-3">Jiksor</h3>
-      <div class="d-flex flex-row">
-        <div id="hole1" class="box col-6"></div>
-        <div id="hole2" class="box col-6"></div>
+      <p id="timecount" class="text-center">-- : --</p>
+      <div>
+        <button onclick="startcount(60)" type="button" id="startbtn1" class="btn btn-success w-100 my-3">EASY !</button>
+        <button onclick="startcount(20)" type="button" id="startbtn2" class="btn btn-info w-100 my-3">MEDIUM !!</button>
+        <button onclick="startcount(6)" type="button" id="startbtn3" class="btn btn-danger w-100 my-3">HARD !!!</button>
       </div>
-      <div class="d-flex flex-row">
-        <div id="hole3" class="box col-6"></div>
-        <div id="hole4" class="box col-6"></div>
-      </div>
-
-      <div class="d-flex flex-row">
-        <img
-          src="/images/1.png"
-          ontouchmove="drag(event)"
-          ontouchend="drop(event)"
-          class="img-sub p-2"
-        />
-        <img
-          src="/images/2.png"
-          ontouchmove="drag(event)"
-          ontouchend="drop(event)"
-          class="img-sub p-2"
-        />
-        <img
-          src="/images/3.png"
-          ontouchmove="drag(event)"
-          ontouchend="drop(event)"
-          class="img-sub p-2"
-        />
-        <img
-          src="/images/4.png"
-          ontouchmove="drag(event)"
-          ontouchend="drop(event)"
-          class="img-sub p-2"
-        />
-      </div>
-
-      <div class="d-flex justify-content-center mt-2">
-        <button onclick="reset()" class="btn btn-danger align-center w-100">
-          Reset
-        </button>
+      <div id="jiksor" style="display: none;">
+        <div class="d-flex flex-row">
+          <div id="hole1" class="box col-6"></div>
+          <div id="hole2" class="box col-6"></div>
+        </div>
+        <div class="d-flex flex-row">
+          <div id="hole3" class="box col-6"></div>
+          <div id="hole4" class="box col-6"></div>
+        </div>
+        <div class="d-flex flex-row">
+          <img
+            src="/images/1.png"
+            alt="1"
+            ontouchmove="drag(event)"
+            ontouchend="drop(event)"
+            class="img-sub p-2"
+          />
+          <img
+            src="/images/2.png"
+            alt="2"
+            ontouchmove="drag(event)"
+            ontouchend="drop(event)"
+            class="img-sub p-2"
+          />
+          <img
+            src="/images/3.png"
+            alt="3"
+            ontouchmove="drag(event)"
+            ontouchend="drop(event)"
+            class="img-sub p-2"
+          />
+          <img
+            src="/images/4.png"
+            alt="4"
+            ontouchmove="drag(event)"
+            ontouchend="drop(event)"
+            class="img-sub p-2"
+          />
+        </div>
+        <div class="d-flex justify-content-center mt-2">
+          <button onclick="reset()" class="btn btn-danger align-center w-100">
+            Back
+          </button>
+        </div>
       </div>
     </div>
 
@@ -138,6 +148,42 @@
           elm.style = "";
           box4.appendChild(elm);
         }
+      }
+
+      //set time by seconds
+      function startcount(t){
+        var start = t;
+        var startbtn1 = document.getElementById('startbtn1');
+        var startbtn2 = document.getElementById('startbtn2');
+        var startbtn3 = document.getElementById('startbtn3');
+        var jiksor = document.getElementById('jiksor');
+        var count = start;
+        var time = setInterval(function () {
+          count--;
+          var minutes = Math.floor(count / 60);
+          var sec = count % 60;
+          var newminutes = minutes < 10 ? '0' + minutes : minutes;
+          var newsec = sec < 10 ? '0' + sec : sec;
+          document.getElementById("timecount").innerHTML = newminutes + " : " + newsec;
+          if (count == 0) {
+            // clearInterval(time);
+            location.reload();
+          }
+          const box1 = document.querySelector("#hole1").firstChild;
+          const box2 = document.querySelector("#hole2").firstChild;
+          const box3 = document.querySelector("#hole3").firstChild;
+          const box4 = document.querySelector("#hole4").firstChild;
+          if (box1 && box2 && box3 && box4) {
+            if (box1.alt + box2.alt + box3.alt + box4.alt == "1234"){
+              clearInterval(time);
+              document.getElementById("timecount").innerHTML = "Finish!!!";
+            }
+          }
+        }, 1000);
+        startbtn1.style.display = "none";
+        startbtn2.style.display = "none";
+        startbtn3.style.display = "none";
+        jiksor.style.display = "block";
       }
 
       function reset() {
