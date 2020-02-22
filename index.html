@@ -115,17 +115,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script>
+      //random row and set of img
       function random() {
-        // let setOfImg = [1, 2, 3, 4];
-        // console.log(setOfImg[Math.floor(Math.random() * setOfImg.length)]);
-        // let numNow = setOfImg[Math.floor(Math.random() * setOfImg.length)]
+        let setOfImg = [1, 2, 3, 4];
         const randomNumber = Math.floor(Math.random() * (4 - 1)) + 1;
         const imgSrc = "/images/" + randomNumber;
-        fristImg.src = imgSrc + "/1.png";
-        secondImg.src = imgSrc + "/2.png";
-        thirdImg.src = imgSrc + "/3.png";
-        forthImg.src = imgSrc + "/4.png";
-        console.log(fristImg, secondImg, thirdImg, forthImg);
+
+        let numNow = Math.floor(Math.random() * setOfImg.length);
+        fristImg.src = imgSrc + "/" + setOfImg[numNow] + ".png";
+        fristImg.alt = setOfImg[numNow];
+        setOfImg.splice(numNow, 1);
+
+        numNow = Math.floor(Math.random() * setOfImg.length);
+        secondImg.src = imgSrc + "/" + setOfImg[numNow] + ".png";
+        secondImg.alt = setOfImg[numNow];
+        setOfImg.splice(numNow, 1);
+
+        numNow = Math.floor(Math.random() * setOfImg.length);
+        thirdImg.src = imgSrc + "/" + setOfImg[numNow] + ".png";
+        thirdImg.alt = setOfImg[numNow];
+        setOfImg.splice(numNow, 1);
+
+        numNow = Math.floor(Math.random() * setOfImg.length);
+        forthImg.src = imgSrc + "/" + setOfImg[numNow] + ".png";
+        forthImg.alt = setOfImg[numNow];
+        setOfImg.splice(numNow, 1);
       }
 
       function drag(event) {
