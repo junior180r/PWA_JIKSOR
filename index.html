@@ -17,6 +17,7 @@
       }
       .img-sub {
         width: 25%;
+        z-index: 20;
       }
       .img-in-div {
         position: absolute;
@@ -34,9 +35,30 @@
       <h3 class="text-center p-3">Jiksor</h3>
       <p id="timecount" class="text-center">-- : --</p>
       <div>
-        <button onclick="startcount(60)" type="button" id="startbtn1" class="btn btn-success w-100 my-3">EASY !</button>
-        <button onclick="startcount(20)" type="button" id="startbtn2" class="btn btn-info w-100 my-3">MEDIUM !!</button>
-        <button onclick="startcount(6)" type="button" id="startbtn3" class="btn btn-danger w-100 my-3">HARD !!!</button>
+        <button
+          onclick="startcount(60)"
+          type="button"
+          id="startbtn1"
+          class="btn btn-success w-100 my-3"
+        >
+          EASY !
+        </button>
+        <button
+          onclick="startcount(20)"
+          type="button"
+          id="startbtn2"
+          class="btn btn-info w-100 my-3"
+        >
+          MEDIUM !!
+        </button>
+        <button
+          onclick="startcount(6)"
+          type="button"
+          id="startbtn3"
+          class="btn btn-danger w-100 my-3"
+        >
+          HARD !!!
+        </button>
       </div>
       <div id="jiksor" style="display: none;">
         <div class="d-flex flex-row">
@@ -49,32 +71,36 @@
         </div>
         <div class="d-flex flex-row">
           <img
-            src="/images/1.png"
+            src="/images/1/1.png"
             alt="1"
             ontouchmove="drag(event)"
             ontouchend="drop(event)"
             class="img-sub p-2"
+            id="fristImg"
           />
           <img
-            src="/images/2.png"
+            src="/images/1/2.png"
             alt="2"
             ontouchmove="drag(event)"
             ontouchend="drop(event)"
             class="img-sub p-2"
+            id="secondImg"
           />
           <img
-            src="/images/3.png"
+            src="/images/1/3.png"
             alt="3"
             ontouchmove="drag(event)"
             ontouchend="drop(event)"
             class="img-sub p-2"
+            id="thirdImg"
           />
           <img
-            src="/images/4.png"
+            src="/images/1/4.png"
             alt="4"
             ontouchmove="drag(event)"
             ontouchend="drop(event)"
             class="img-sub p-2"
+            id="forthImg"
           />
         </div>
         <div class="d-flex justify-content-center mt-2">
@@ -89,10 +115,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script>
+      function random() {
+        // let setOfImg = [1, 2, 3, 4];
+        // console.log(setOfImg[Math.floor(Math.random() * setOfImg.length)]);
+        // let numNow = setOfImg[Math.floor(Math.random() * setOfImg.length)]
+        const randomNumber = Math.floor(Math.random() * (4 - 1)) + 1;
+        const imgSrc = "/images/" + randomNumber;
+        fristImg.src = imgSrc + "/1.png";
+        secondImg.src = imgSrc + "/2.png";
+        thirdImg.src = imgSrc + "/3.png";
+        forthImg.src = imgSrc + "/4.png";
+        console.log(fristImg, secondImg, thirdImg, forthImg);
+      }
+
       function drag(event) {
+        const elm = event.target;
+        document.body.appendChild(elm);
+        elm.className = "img-sub";
         var x = event.touches[0].clientX;
         var y = event.touches[0].clientY;
-        const elm = event.target;
         elm.style.position = "absolute";
         elm.style.top = y + "px";
         elm.style.left = x + "px";
@@ -109,13 +150,13 @@
         var rect4 = box4.getBoundingClientRect();
 
         const elm = event.target;
-        elm.removeAttribute("ontouchmove");
 
         if (
           event.changedTouches[0].clientX <= rect1.right &&
           event.changedTouches[0].clientX >= rect1.left &&
           event.changedTouches[0].clientY >= rect1.top &&
-          event.changedTouches[0].clientY <= rect1.bottom
+          event.changedTouches[0].clientY <= rect1.bottom &&
+          box1.childNodes.length < 1
         ) {
           elm.className = "img-in-div";
           elm.style = "";
@@ -124,7 +165,8 @@
           event.changedTouches[0].clientX <= rect2.right &&
           event.changedTouches[0].clientX >= rect2.left &&
           event.changedTouches[0].clientY >= rect2.top &&
-          event.changedTouches[0].clientY <= rect2.bottom
+          event.changedTouches[0].clientY <= rect2.bottom &&
+          box2.childNodes.length < 1
         ) {
           elm.className = "img-in-div";
           elm.style = "";
@@ -133,7 +175,8 @@
           event.changedTouches[0].clientX <= rect3.right &&
           event.changedTouches[0].clientX >= rect3.left &&
           event.changedTouches[0].clientY >= rect3.top &&
-          event.changedTouches[0].clientY <= rect3.bottom
+          event.changedTouches[0].clientY <= rect3.bottom &&
+          box3.childNodes.length < 1
         ) {
           elm.className = "img-in-div";
           elm.style = "";
@@ -142,7 +185,8 @@
           event.changedTouches[0].clientX <= rect4.right &&
           event.changedTouches[0].clientX >= rect4.left &&
           event.changedTouches[0].clientY >= rect4.top &&
-          event.changedTouches[0].clientY <= rect4.bottom
+          event.changedTouches[0].clientY <= rect4.bottom &&
+          box4.childNodes.length < 1
         ) {
           elm.className = "img-in-div";
           elm.style = "";
@@ -151,20 +195,21 @@
       }
 
       //set time by seconds
-      function startcount(t){
+      function startcount(t) {
         var start = t;
-        var startbtn1 = document.getElementById('startbtn1');
-        var startbtn2 = document.getElementById('startbtn2');
-        var startbtn3 = document.getElementById('startbtn3');
-        var jiksor = document.getElementById('jiksor');
+        var startbtn1 = document.getElementById("startbtn1");
+        var startbtn2 = document.getElementById("startbtn2");
+        var startbtn3 = document.getElementById("startbtn3");
+        var jiksor = document.getElementById("jiksor");
         var count = start;
-        var time = setInterval(function () {
+        var time = setInterval(function() {
           count--;
           var minutes = Math.floor(count / 60);
           var sec = count % 60;
-          var newminutes = minutes < 10 ? '0' + minutes : minutes;
-          var newsec = sec < 10 ? '0' + sec : sec;
-          document.getElementById("timecount").innerHTML = newminutes + " : " + newsec;
+          var newminutes = minutes < 10 ? "0" + minutes : minutes;
+          var newsec = sec < 10 ? "0" + sec : sec;
+          document.getElementById("timecount").innerHTML =
+            newminutes + " : " + newsec;
           if (count == 0) {
             // clearInterval(time);
             location.reload();
@@ -174,12 +219,13 @@
           const box3 = document.querySelector("#hole3").firstChild;
           const box4 = document.querySelector("#hole4").firstChild;
           if (box1 && box2 && box3 && box4) {
-            if (box1.alt + box2.alt + box3.alt + box4.alt == "1234"){
+            if (box1.alt + box2.alt + box3.alt + box4.alt == "1234") {
               clearInterval(time);
               document.getElementById("timecount").innerHTML = "Finish!!!";
             }
           }
         }, 1000);
+        random();
         startbtn1.style.display = "none";
         startbtn2.style.display = "none";
         startbtn3.style.display = "none";
