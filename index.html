@@ -13,15 +13,15 @@
       rel="stylesheet"/>
     <style>
       body {
-        background: #A6C83D    ;
+        background: #FFF5EE    ;
         animation: mymove 13s infinite;
       }
       @keyframes mymove {
-        80% {background-color: #63CF9D ;
+        80% {background-color: #F5F5DC ;
       }
       }
       h3 {
-        color: #FF681F ;
+        color: rgb(231, 35, 9) ;
         letter-spacing: 3px;
         font-size: 100px ;
         font-family: 'Akronim', ;
@@ -30,19 +30,22 @@
         font-size: 30px;
       }
       #startbtn1  {
-        background-color:#B7194A !important;
+        background-color:#2ECC71  !important;
         
       }
       #startbtn2  {
-        background-color:#E1C190 !important;
+        background-color:#F1C40F  !important;
       }
       #startbtn3  {
-        background-color: #431345  !important;
+        background-color: #3498DB   !important;
+      }
+      #backbotton {
+        background-color:#99A3A4  ;
       }
       .box {
         width: 50%;
         height: 200px;
-        border: 1px solid white;
+        border: 1px solid#99A3A4 ;
         position: relative;
       }
       .img-sub {
@@ -135,7 +138,7 @@
           />
         </div>
         <div class="d-flex justify-content-center mt-2">
-          <button onclick="reset()" class="btn btn-danger align-center w-100">
+          <button onclick="reset()" class="btn btn-danger align-center w-100" id='backbotton'>
             Back
           </button>
         </div>
